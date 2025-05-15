@@ -114,6 +114,10 @@ namespace Gesture.Manager
 				isDrawing = false;
 			}
 		}
+
+		/// <summary>
+		/// Save gesture into rawData
+		/// </summary>
 		public void OnSaveButton()
 		{
 			int gestureIndex = gestureDropdown.value;
@@ -131,6 +135,10 @@ namespace Gesture.Manager
 			UnityEditor.AssetDatabase.SaveAssets();
 #endif
 		}
+
+		/// <summary>
+		/// Load Gesture from rawData
+		/// </summary>
 		public void OnLoadButton()
 		{
 			int gestureIndex = gestureDropdown.value;
@@ -145,7 +153,10 @@ namespace Gesture.Manager
 			}
 		}
 
-		public void OnCompareAndSaveButton()
+		/// <summary>
+		/// Function to compare gestures and save results as .csv file
+		/// </summary>
+		public void OnCompareButton()
 		{
 			List<List<Vector2>> templates = new();
 			List<List<Vector2>> processedTemplates = new();
@@ -201,8 +212,7 @@ namespace Gesture.Manager
 			spendTime[recognizerIdx, x * 5 + (y-1)] = time;
 
 		}
-
-		void SaveToCSV(string path)
+		private void SaveToCSV(string path)
 		{
 			StringBuilder sb = new StringBuilder();
 

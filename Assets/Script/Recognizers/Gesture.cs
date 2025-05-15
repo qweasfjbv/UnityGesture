@@ -7,7 +7,6 @@ namespace Gesture
 {
 	public class Gesture
 	{
-
 		public static List<Vector2> PreprocessPoints(List<Vector2> points, bool isAll)
 		{
 			List<Vector2> newPoints = RemoveNaNPoints(points);
@@ -25,11 +24,19 @@ namespace Gesture
 			return newPoints;
 		}
 
+		/// <summary>
+		/// Remove Float.NaN value from data
+		/// </summary>
 		private static List<Vector2> RemoveNaNPoints(List<Vector2> points)
 		{
 			return points.FindAll(p => !float.IsNaN(p.x) && !float.IsNaN(p.y));
 		}
-		public static List<Vector2> RemoveConsecutiveDuplicates(List<Vector2> points)
+
+		/// <summary>
+		/// Remove ConsecutiveDuplicates from data
+		///  which can cause Float.NaN value
+		/// </summary>
+		private static List<Vector2> RemoveConsecutiveDuplicates(List<Vector2> points)
 		{
 			List<Vector2> result = new List<Vector2>();
 
@@ -48,7 +55,8 @@ namespace Gesture
 
 			return result;
 		}
-		public static List<Vector2> Resample(List<Vector2> points, int n)
+
+		private static List<Vector2> Resample(List<Vector2> points, int n)
 		{
 			float pathLength = PathLength(points);
 			float interval = pathLength / (n - 1);
@@ -78,10 +86,9 @@ namespace Gesture
 			{
 				newPoints.Add(points[points.Count - 1]);
 			}
-			// if (newPoints.Count != 64) Debug.LogWarning("COUNT : " + newPoints.Count);
+
 			return newPoints;
 		}
-
 		private static float PathLength(List<Vector2> points)
 		{
 			float length = 0f;
@@ -91,7 +98,6 @@ namespace Gesture
 			}
 			return length;
 		}
-
 		public static List<Vector2> RotateToZero(List<Vector2> points)
 		{
 			Vector2 c = Centroid(points);
@@ -99,7 +105,6 @@ namespace Gesture
 			float angle = Mathf.Atan2(first.y - c.y, first.x - c.x);
 			return RotateBy(points, -angle);
 		}
-
 		public static List<Vector2> RotateBy(List<Vector2> points, float radians)
 		{
 			Vector2 c = Centroid(points);
@@ -116,8 +121,7 @@ namespace Gesture
 
 			return newPoints;
 		}
-
-		public static List<Vector2> ScaleToSquare(List<Vector2> points, float size)
+		private static List<Vector2> ScaleToSquare(List<Vector2> points, float size)
 		{
 			float minX = float.MaxValue, maxX = float.MinValue;
 			float minY = float.MaxValue, maxY = float.MinValue;
@@ -143,7 +147,7 @@ namespace Gesture
 
 			return newPoints;
 		}
-		public static List<Vector2> TranslateToOrigin(List<Vector2> points)
+		private static List<Vector2> TranslateToOrigin(List<Vector2> points)
 		{
 			Vector2 c = Centroid(points);
 			List<Vector2> newPoints = new();
@@ -155,7 +159,11 @@ namespace Gesture
 
 			return newPoints;
 		}
-		public static Vector2 Centroid(List<Vector2> points)
+
+		/// <summary>
+		/// Find centroid of points
+		/// </summary>
+		private static Vector2 Centroid(List<Vector2> points)
 		{
 			float sumX = 0, sumY = 0;
 			foreach (var p in points)
@@ -165,6 +173,5 @@ namespace Gesture
 			}
 			return new Vector2(sumX / points.Count, sumY / points.Count);
 		}
-
 	}
 }
