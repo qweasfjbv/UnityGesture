@@ -1,5 +1,6 @@
 using Gesture.Data;
 using Gesture.Recognizer;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -156,6 +157,7 @@ namespace Gesture.Manager
 		/// <summary>
 		/// Function to compare gestures and save results as .csv file
 		/// </summary>
+		[ContextMenu("Compare")]
 		public void OnCompareButton()
 		{
 			List<List<Vector2>> templates = new();
@@ -170,6 +172,7 @@ namespace Gesture.Manager
 
 			Stopwatch sw = new Stopwatch();
 
+			GC.Collect();
 			for (int i = 0; i < 4; i++)
 			{
 				bool isPreprocessAll = i == 0 || i == 3;
