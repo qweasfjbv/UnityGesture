@@ -3454,7 +3454,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2042122760}
         m_TargetAssemblyTypeName: Gesture.Manager.ExecuteManager, Assembly-CSharp
-        m_MethodName: OnCompareAndSaveButton
+        m_MethodName: OnCompareButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

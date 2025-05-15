@@ -25,12 +25,11 @@ namespace Gesture.Recognizer
 				rawScores.Add(distance);
 			}
 
-			float min = rawScores.Min();
 			float max = rawScores.Max();
-			float range = max - min;
+			float min = rawScores.Min();
 
 			float[] normalizedScores = rawScores
-				.Select(score => range > 0 ? 1f - (score - min) / range : 1f)
+				.Select(score => max > 0 ? ((max - score + min) / max) : 0f)
 				.ToArray();
 
 			return normalizedScores;
